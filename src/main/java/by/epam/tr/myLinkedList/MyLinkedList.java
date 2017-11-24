@@ -5,7 +5,7 @@ import by.epam.tr.myList;
 
 import java.util.*;
 
-public class MyLinkedList implements myList {
+public class MyLinkedList implements myList, Iterable {
     private int size = 0;
 
     private static class Entity {
@@ -225,5 +225,36 @@ public class MyLinkedList implements myList {
         x.item = null;
         size--;
         return element;
+    }
+
+    public Iterator iterator() {
+        return new myIterator();
+    }
+
+    private class myIterator implements Iterator{
+        int next = 0;
+        int present = -1;
+
+        public boolean hasNext() {
+            return next < size();
+        }
+
+        public Object next() {
+            int i = next;
+            Object nextElement = get(i);
+            present = i;
+            next++;
+            return nextElement;
+        }
+
+        public void remove() {
+            if (present > 0) {
+                MyLinkedList.this.remove(present);
+                next--;
+                present = -1;
+            } else {
+                throw new IllegalStateException();
+            }
+        }
     }
 }
