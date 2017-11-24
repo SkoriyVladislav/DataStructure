@@ -9,7 +9,7 @@ public class myLinkedListTest {
     @Test
     public void testContains() {
         // Проверяемый метод
-        MyLinkedList myLinkedList = new MyLinkedList();
+        MyLinkedList myLinkedList = new MyLinkedList ();
         myLinkedList.add("miracle");
         assertEquals(myLinkedList.contains("miracle"), true);
     }

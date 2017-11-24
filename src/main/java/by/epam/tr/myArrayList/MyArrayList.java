@@ -3,7 +3,7 @@ import by.epam.tr.myList;
 
 import java.util.*;
 
-public class MyArrayList<T> implements myList<T> {
+public class MyArrayList<T> implements myList<T>, Iterable<T> {
     private Object[] array;
     private int size;
 
@@ -166,5 +166,38 @@ public class MyArrayList<T> implements myList<T> {
                 "array=" + Arrays.toString(array) +
                 ", size=" + size +
                 '}';
+    }
+
+    public Iterator<T> iterator() {
+        return new myIterator();
+    }
+
+    private class myIterator implements Iterator<T> {
+        int next = 0;
+        int prev = -1;
+
+        public boolean hasNext() {
+            return next <= size();
+        }
+
+        public T next() {
+            int i = next;
+            T nextElement = get(i);
+            prev = i;
+            next = i + 1;
+            return nextElement;
+        }
+
+        public void remove() {
+            if (prev < 0) {
+                throw new IllegalStateException();
+            }
+
+            MyArrayList.this.remove(prev);
+            if (prev < next) {
+                next--;
+            }
+            prev = -1;
+        }
     }
 }
