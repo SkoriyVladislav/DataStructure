@@ -174,30 +174,28 @@ public class MyArrayList<T> implements myList<T>, Iterable<T> {
 
     private class myIterator implements Iterator<T> {
         int next = 0;
-        int prev = -1;
+        int present = -1;
 
         public boolean hasNext() {
-            return next <= size();
+            return next < size();
         }
 
         public T next() {
             int i = next;
             T nextElement = get(i);
-            prev = i;
-            next = i + 1;
+            present = i;
+            next++;
             return nextElement;
         }
 
         public void remove() {
-            if (prev < 0) {
+            if (present > 0) {
+                MyArrayList.this.remove(present);
+                next--;
+                present = -1;
+            } else {
                 throw new IllegalStateException();
             }
-
-            MyArrayList.this.remove(prev);
-            if (prev < next) {
-                next--;
-            }
-            prev = -1;
         }
     }
 }
