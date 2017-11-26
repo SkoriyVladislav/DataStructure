@@ -1,26 +1,31 @@
-import by.epam.tr.myArrayList.MyArrayList;
-import by.epam.tr.myLinkedList.MyLinkedList;
-import by.epam.tr.myList;
+import by.epam.tr.binaryTree.MyTree;
 
 
 public class main {
     public static void main(String... args) {
-        MyArrayList<String> myArrayList = new MyArrayList<String>();
-        myList list = new MyLinkedList();
-        myArrayList.add("miracle");
-        System.out.println(myArrayList);
-        myArrayList.contains("miracle");
-        System.out.println(myArrayList.indexOf("miracle"));
-        myArrayList.remove(0);
-        System.out.println(myArrayList);
+        MyTree theTree = new MyTree();
+        theTree.addNode(50, "Boss");
+        theTree.addNode(25, "Vice President");
+        theTree.addNode(15, "Office Manager");
+        theTree.addNode(30, "Secretary");
+        theTree.addNode(75, "Sales Manager");
+        theTree.addNode(85, "Salesman 1");
 
+        // Different ways to traverse binary trees
+        theTree.inOrderTraverseTree(theTree.root);
+        System.out.println();
         System.out.println();
 
-        list.add("poshel naxyi");
-        System.out.println(list);
-        list.add(0,"axyel?");
-        System.out.println(list);
-        list.remove("axyel?");
-        System.out.println(list);
+        theTree.preorderTraverseTree(theTree.root);
+        System.out.println();
+        System.out.println();
+
+        theTree.postOrderTraverseTree(theTree.root);
+        System.out.println();
+        System.out.println();
+        // Find the node with key 75
+        System.out.println("\nNode with the key 75");
+        System.out.println(theTree.findNode(75));
+
     }
 }
