@@ -1,11 +1,11 @@
 package by.epam.tr.myLinkedList;
 
 
-import by.epam.tr.myList;
+import by.epam.tr.MyList;
 
 import java.util.*;
 
-public class MyLinkedList implements myList, Iterable {
+public class MyLinkedList implements MyList, Iterable {
     private int size = 0;
 
     private static class Entity {

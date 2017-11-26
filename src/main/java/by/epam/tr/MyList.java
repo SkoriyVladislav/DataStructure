@@ -2,7 +2,7 @@ package by.epam.tr;
 
 import java.util.*;
 
-public interface myList<T> {
+public interface MyList<T> {
 
     int size();
 

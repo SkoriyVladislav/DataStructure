@@ -1,9 +1,9 @@
 package by.epam.tr.myArrayList;
-import by.epam.tr.myList;
+import by.epam.tr.MyList;
 
 import java.util.*;
 
-public class MyArrayList<T> implements myList<T>, Iterable<T> {
+public class MyArrayList<T> implements MyList<T>, Iterable<T> {
     private Object[] array;
     private int size;
 
