@@ -1,5 +1,7 @@
 import by.epam.tr.binaryTree.MyTree;
 
+import java.util.Iterator;
+
 
 public class main {
     public static void main(String... args) {
@@ -26,6 +28,12 @@ public class main {
         // Find the node with key 75
         System.out.println("\nNode with the key 75");
         System.out.println(theTree.findNode(75));
+        System.out.println();
+        System.out.println();
 
+        Iterator iterator = theTree.iterator();
+        while (iterator.hasNext()){
+            System.out.println(iterator.next());
+        }
     }
 }

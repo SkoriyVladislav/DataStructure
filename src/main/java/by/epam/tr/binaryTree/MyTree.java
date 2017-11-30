@@ -1,6 +1,6 @@
 package by.epam.tr.binaryTree;
 
-import java.util.Comparator;
+import java.util.*;
 
 public class MyTree<K, V> {
     public Node<K, V> root;
@@ -22,7 +22,7 @@ public class MyTree<K, V> {
         } else {
             Node<K, V> focusNode = root;
             Node<K, V> parent;
-            while (true) {
+            while (focusNode != null) {
                 parent = focusNode;
                 if (compare(focusNode.getKey(), key) > 0) {
                     focusNode = focusNode.leftChild;
@@ -84,6 +84,51 @@ public class MyTree<K, V> {
             return null;
         }
         return focusNode;
+    }
+
+    public Iterator<V> iterator() {
+        return new myIterator();
+    }
+
+    private class myIterator implements Iterator<V> {
+        int next = 0;
+        int present = -1;
+        ArrayList<V> arrayList = initQue(root);
+
+        public boolean hasNext() {
+            return next < arrayList.size();
+        }
+
+        public V next() {
+            int i = next;
+            V nextElement = arrayList.get(next);
+            present = i;
+            next++;
+            return nextElement;
+        }
+
+        public void remove() {
+            if (present > 0) {
+                arrayList.remove(present);
+                next--;
+                present = -1;
+            } else {
+                throw new IllegalStateException();
+            }
+        }
+
+        private ArrayList<V> initQue(Node<K,V> node) {
+            return inOrderTraverseTree(node, new ArrayList<V>());
+        }
+
+        private ArrayList<V> inOrderTraverseTree(Node focusNode, ArrayList<V> arrayList) {
+            if (focusNode != null) {
+                inOrderTraverseTree(focusNode.leftChild, arrayList);
+                arrayList.add((V)focusNode.getValue());
+                inOrderTraverseTree(focusNode.rightChild, arrayList);
+            }
+            return arrayList;
+        }
     }
 
 }
