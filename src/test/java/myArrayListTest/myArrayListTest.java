@@ -3,6 +3,8 @@ package myArrayListTest;
 import by.epam.tr.myArrayList.MyArrayList;
 import org.junit.Test;
 
+import java.util.Iterator;
+
 import static org.junit.Assert.assertEquals;
 
 public class myArrayListTest {
@@ -47,5 +49,16 @@ public class myArrayListTest {
         myArrayList.add("miracle");
         myArrayList.set(0, "string");
         assertEquals(myArrayList.get(0), "string");
+    }
+
+    @Test
+    public void testIterator() {
+        // Проверяемый метод
+        MyArrayList<String> myArrayList = new MyArrayList<String>();
+        myArrayList.add("miracle");
+        myArrayList.add("string");
+        Iterator iterator = myArrayList.iterator();
+        iterator.next();
+        assertEquals(iterator.next(), "string");
     }
 }

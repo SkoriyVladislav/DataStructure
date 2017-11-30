@@ -3,6 +3,8 @@ package myLinkedListTest;
 import by.epam.tr.myLinkedList.MyLinkedList;
 import org.junit.Test;
 
+import java.util.Iterator;
+
 import static org.junit.Assert.assertEquals;
 
 public class myLinkedListTest {
@@ -10,6 +12,9 @@ public class myLinkedListTest {
     public void testContains() {
         // Проверяемый метод
         MyLinkedList myLinkedList = new MyLinkedList ();
+        myLinkedList.add("string");
+        myLinkedList.add("string3");
+        myLinkedList.add("string1");
         myLinkedList.add("miracle");
         assertEquals(myLinkedList.contains("miracle"), true);
     }
@@ -47,5 +52,16 @@ public class myLinkedListTest {
         myLinkedList.add("miracle");
         myLinkedList.set(0, "string");
         assertEquals(myLinkedList.get(0), "string");
+    }
+
+    @Test
+    public void testIterator() {
+        // Проверяемый метод
+        MyLinkedList myLinkedList = new MyLinkedList();
+        myLinkedList.add("miracle");
+        myLinkedList.add("string");
+        Iterator iterator = myLinkedList.iterator();
+        iterator.next();
+        assertEquals(iterator.next(), "string");
     }
 }

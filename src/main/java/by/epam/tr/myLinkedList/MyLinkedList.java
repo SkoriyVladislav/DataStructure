@@ -41,10 +41,10 @@ public class MyLinkedList implements MyList, Iterable {
     public boolean contains(Object o) {
         Entity x = first;
         for (int i = 0; i < size; i++) {
-            if (x.item == o) {
+            if (x.item.equals(o)) {
                 return true;
             }
-            x = first.next;
+            x = x.next;
         }
         return false;
     }

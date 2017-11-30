@@ -26,6 +26,6 @@ public final class Node<K, V> {
     }
 
     public String toString() {
-        return value + " has the key " + key;
+        return key + " " + value;
     }
 }
