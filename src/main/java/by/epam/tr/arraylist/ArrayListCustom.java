@@ -1,25 +1,19 @@
-package by.epam.tr.myArrayList;
+package by.epam.tr.arraylist;
 import by.epam.tr.MyList;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.*;
 
-public class MyArrayList<T> implements MyList<T>, Iterable<T> {
+public class ArrayListCustom<T> implements MyList<T>, Iterable<T> {
+    private static final Logger logger = LogManager.getLogger(ArrayListCustom.class);
     private Object[] array;
     private int size;
 
-    public <T> MyArrayList() {
+    public <T> ArrayListCustom() {
         array = new Object[size];
         size = 0;
-    }
-
-    public <T> MyArrayList(int length) {
-        array = new Object[size];
-        size = length;
-    }
-
-    public <T> MyArrayList(MyArrayList<T> newArrayList) {
-        array = newArrayList.array;
-        size = newArrayList.size;
     }
 
     public int size() {
@@ -65,24 +59,20 @@ public class MyArrayList<T> implements MyList<T>, Iterable<T> {
 
     public boolean remove(T o) {
         boolean flag = true;
-        if (flag) {
-            Object[] newArr = new Object[size - 1];
-            for (int i = 0, j = 0; i < size; i++, j++) {
-                if (array[i].equals(o)) {
-                    if (flag) {
-                        j--;
-                        flag = false;
-                    }
-                } else {
-                    newArr[j] = array[i];
+        Object[] newArr = new Object[size];
+        for (int i = 0, j = 0; i < size; i++, j++) {
+            if (array[i].equals(o)) {
+                if (flag) {
+                    j--;
+                    flag = false;
                 }
+            } else {
+                newArr[j] = array[i];
             }
         }
-        return false;
-    }
 
-    public void sort(Comparator c) {
-        Arrays.sort(array, c);
+        array = Arrays.copyOfRange(newArr, 0, size - 1);
+        return !flag;
     }
 
     public void clear() {
@@ -101,8 +91,10 @@ public class MyArrayList<T> implements MyList<T>, Iterable<T> {
             T o = (T)array[index];
             array[index] = element;
             return o;
-        } else
+        } else {
+            logger.log(Level.ERROR, "Index < 0");
             return null;
+        }
     }
 
     public void add(int index, T element) {
@@ -122,6 +114,9 @@ public class MyArrayList<T> implements MyList<T>, Iterable<T> {
 
     public T remove(int index) {
         T o = null;
+        if (index < 0) {
+            logger.log(Level.ERROR, "Index < 0");
+        }
         if (index < size) {
             o = (T)array[index];
             remove(o);
@@ -145,24 +140,9 @@ public class MyArrayList<T> implements MyList<T>, Iterable<T> {
         return true;
     }
 
-    public boolean removeAll(Collection<? extends T> c) {
-        boolean flag = true;
-        for (T o : c) {
-            flag = remove(o);
-        }
-        return flag;
-    }
-
-    public boolean containsAll(Collection<? extends T> c) {
-        for (T o : c) {
-            contains(o);
-        }
-        return true;
-    }
-
     @Override
     public String toString() {
-        return "MyArrayList{" +
+        return "ArrayListCustom{" +
                 "array=" + Arrays.toString(array) +
                 ", size=" + size +
                 '}';
@@ -190,7 +170,7 @@ public class MyArrayList<T> implements MyList<T>, Iterable<T> {
 
         public void remove() {
             if (present > 0) {
-                MyArrayList.this.remove(present);
+                ArrayListCustom.this.remove(present);
                 next--;
                 present = -1;
             } else {

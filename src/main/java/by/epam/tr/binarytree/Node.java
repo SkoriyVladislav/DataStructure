@@ -1,4 +1,4 @@
-package by.epam.tr.binaryTree;
+package by.epam.tr.binarytree;
 
 public final class Node<K, V> {
     K key;

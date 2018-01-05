@@ -1,11 +1,14 @@
-package by.epam.tr.myLinkedList;
+package by.epam.tr.linkedlist;
 
 
 import by.epam.tr.MyList;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.*;
 
-public class MyLinkedList implements MyList, Iterable {
+public class LinkedListCustom implements MyList, Iterable {
+    private static final Logger logger = LogManager.getLogger(LinkedListCustom.class);
     private int size = 0;
 
     private static class Entity {
@@ -20,11 +23,11 @@ public class MyLinkedList implements MyList, Iterable {
         }
     }
 
-    public MyLinkedList.Entity first;
-    public MyLinkedList.Entity last;
+    public LinkedListCustom.Entity first;
+    public LinkedListCustom.Entity last;
 
 
-    public MyLinkedList() {
+    public LinkedListCustom() {
     }
 
     public int size() {
@@ -101,17 +104,6 @@ public class MyLinkedList implements MyList, Iterable {
         return str;
     }
 
-    private void linkFirst(Object e) {
-        final Entity f = first;
-        final Entity newEntity = new Entity(null, e, f);
-        first = newEntity;
-        if (f == null)
-            last = newEntity;
-        else
-            f.prev = newEntity;
-        size++;
-    }
-
     private boolean linkLast(Object e) {
         final Entity l = last;
         final Entity newEntity = new Entity(l, e, null);
@@ -124,10 +116,6 @@ public class MyLinkedList implements MyList, Iterable {
         return true;
     }
 
-    public void addFirst(Object obj) {
-        linkFirst(obj);
-    }
-
     public void add(int index, Object element) {
         if (index == size)
             linkLast(element);
@@ -136,10 +124,7 @@ public class MyLinkedList implements MyList, Iterable {
     }
 
     public boolean add(Object element) {
-        if (linkLast(element))
-            return true;
-        else
-            return false;
+        return linkLast(element);
     }
 
     private Entity Entity(int index) {
@@ -228,10 +213,10 @@ public class MyLinkedList implements MyList, Iterable {
     }
 
     public Iterator iterator() {
-        return new myIterator();
+        return new MyIterator();
     }
 
-    private class myIterator implements Iterator{
+    private class MyIterator implements Iterator{
         int next = 0;
         int present = -1;
 
@@ -249,7 +234,7 @@ public class MyLinkedList implements MyList, Iterable {
 
         public void remove() {
             if (present > 0) {
-                MyLinkedList.this.remove(present);
+                LinkedListCustom.this.remove(present);
                 next--;
                 present = -1;
             } else {
